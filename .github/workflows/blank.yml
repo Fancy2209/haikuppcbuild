@@ -29,8 +29,10 @@ jobs:
       - name: Run a multi-line script
         run: |
           sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr
-          git clone https://review.haiku-os.org/buildtools --depth=1 
-          git clone https://review.haiku-os.org/haiku --depth=1
+          git clone https://github.com/haiku/buildtools --depth=1 
+          git clone https://github.com/haiku/haiku --depth=1
           cd haiku && mkdir generated.ppc && cd generated.ppc
+          cd buildtools/jam && make -j$(nproc) && sudo ./jam0 install && cd ../../
           ../configure -j$(nproc) --cross-tools-source ../../buildtools --build-cross-tools ppc
           jam -q -j$(nproc) haiku-boot-cd
+          ls -a
