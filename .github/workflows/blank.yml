@@ -42,8 +42,8 @@ jobs:
           
           cd haiku && mkdir generated.ppc && cd generated.ppc
           ../configure -j$(nproc) --cross-tools-source ../../buildtools --build-cross-tools ppc --bootstrap ../../haikuporter/haikuporter ../../haikuports.cross ../../haikuports
-          PATH=/usr/local/bin:$PATH /usr/local/bin/jam -q -j$(nproc) -sHAIKU_PORTER_CONCURRENT_JOBS=$(nproc) @bootstrap-raw 
-          PATH=/usr/local/bin:$PATH /usr/local/bin/jam -q -j$(nproc) @bootstrap-raw haiku-boot-cd.iso
+          PATH=/usr/local/bin:$PATH /usr/local/bin/jam -q -sHAIKU_PORTER_CONCURRENT_JOBS=$(nproc) @bootstrap-raw 
+          PATH=/usr/local/bin:$PATH /usr/local/bin/jam -q @bootstrap-raw haiku-boot-cd.iso
 
       - uses: actions/upload-artifact@v4
         with:
