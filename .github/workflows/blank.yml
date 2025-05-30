@@ -19,7 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    container: debian:latest
+    container: debian:bookworm
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -37,7 +37,7 @@ jobs:
 
       - name: Bootstrap Haiku
         run: |
-          git clone https://github.com/haiku/haiku --depth=1
+          git clone https://github.com/haiku/haiku
           git clone https://github.com/haikuports/haikuporter --depth=1
           git clone https://github.com/Fancy2209/haikuports.cross --depth=1
           git clone https://github.com/haikuports/haikuports --depth=1
