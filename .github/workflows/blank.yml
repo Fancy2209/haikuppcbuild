@@ -28,15 +28,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          # Base Haiku Build Deps
-          sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr 
-          
-          # Haiku Bootstrap Deps
-          sudo apt install ncurses-dev pkg-config autopoint
+          sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr \
+                           ncurses-dev pkg-config autopoint \ 
+                           genisoimage
 
-          # Needed to make the BootCD on PPC
-          sudo apt install genisoimage
-
+      - name: Build Cross-Compiling Toolchain
+        run:
           git clone https://github.com/haiku/buildtools --depth=1 
           cd buildtools
           cd jam 
@@ -44,6 +41,8 @@ jobs:
           sudo ./jam0 install 
           cd ../../
           
+      - name: Bootstrap Haiku
+        run:
           git clone https://github.com/haiku/haiku --depth=1
           git clone https://github.com/haikuports/haikuporter --depth=1
           git clone https://github.com/Fancy2209/haikuports.cross --depth=1
