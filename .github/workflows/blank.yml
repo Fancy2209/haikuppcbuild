@@ -34,7 +34,7 @@ jobs:
           cd ../../
 
       - name: Bootstrap Haiku
-        run:
+        run: |
           git clone https://github.com/haiku/haiku --depth=1
           git clone https://github.com/haikuports/haikuporter --depth=1
           git clone https://github.com/Fancy2209/haikuports.cross --depth=1
