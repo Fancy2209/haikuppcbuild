@@ -28,7 +28,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr
+          # Base Haiku Build Deps
+          sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr 
+          
+          # Haiku Bootstrap Deps
+          sudo apt install ncurses-dev pkg-config autopoint
+
           git clone https://github.com/haiku/buildtools --depth=1 
           cd buildtools
           cd jam 
@@ -37,7 +42,18 @@ jobs:
           cd ../../
           
           git clone https://github.com/haiku/haiku --depth=1
+          git clone https://github.com/haikuports/haikuporter --depth=1
+          git clone https://github.com/Fancy2209/haikuports.cross --depth=1
+          git clone https://github.com/haikuports/haikuports --depth=1
+          
           cd haiku && mkdir generated.ppc && cd generated.ppc
-          ../configure -j$(nproc) --cross-tools-source ../../buildtools --build-cross-tools ppc
-          jam -q -j$(nproc) haiku-boot-cd
-          ls -a
+          ../configure -j$(nproc) --cross-tools-source ../../buildtools --build-cross-tools ppc --bootstrap ../../haikuporter/haikuporter ../../haikuports.cross ../../haikuports
+          jam -q -j$(nproc) @bootstrap-raw 
+          jam -q -j$(nproc) @bootstrap-raw haiku-boot-cd.iso
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HaikuPPC
+          path: |
+            haiku-bootstrap.image
+            haiku-boot-cd.iso
