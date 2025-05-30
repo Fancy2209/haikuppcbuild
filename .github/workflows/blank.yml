@@ -38,9 +38,9 @@ jobs:
       - name: Bootstrap Haiku
         run: |
           git clone https://github.com/haiku/haiku
-          git clone https://github.com/haikuports/haikuporter --depth=1
-          git clone https://github.com/Fancy2209/haikuports.cross --depth=1
-          git clone https://github.com/haikuports/haikuports --depth=1
+          git clone https://github.com/haikuports/haikuporter
+          git clone https://github.com/Fancy2209/haikuports.cross
+          git clone https://github.com/haikuports/haikuports
           
           cd haiku && mkdir generated.ppc && cd generated.ppc
           ../configure -j$(nproc) --cross-tools-source ../../buildtools --build-cross-tools ppc --bootstrap ../../haikuporter/haikuporter ../../haikuports.cross ../../haikuports
