@@ -34,6 +34,9 @@ jobs:
           # Haiku Bootstrap Deps
           sudo apt install ncurses-dev pkg-config autopoint
 
+          # Needed to make the BootCD on PPC
+          sudo apt install genisoimage
+
           git clone https://github.com/haiku/buildtools --depth=1 
           cd buildtools
           cd jam 
