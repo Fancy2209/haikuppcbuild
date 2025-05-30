@@ -26,12 +26,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install depdencies
         run: |
-          sudo apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr ncurses-dev pkg-config autopoint genisoimage -y
+          apt install git nasm bc autoconf automake texinfo flex bison gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev xorriso libtool gcc-multilib python3 attr ncurses-dev pkg-config autopoint genisoimage -y
           git clone https://github.com/haiku/buildtools --depth=1
           cd buildtools
           cd jam 
           make -j$(nproc) 
-          sudo ./jam0 install 
+          ./jam0 install 
           cd ../../
 
       - name: Bootstrap Haiku
